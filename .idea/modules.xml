@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Member-Management-Fullstack-Project.iml" filepath="$PROJECT_DIR$/.idea/Member-Management-Fullstack-Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-backend/springboot-backend.iml" filepath="$PROJECT_DIR$/springboot-backend/springboot-backend.iml" />
     </modules>
   </component>
 </project>
