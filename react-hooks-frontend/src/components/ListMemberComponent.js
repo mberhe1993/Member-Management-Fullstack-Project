@@ -48,37 +48,53 @@ const ListMemberComponent = () => {
                 </thead>
                 <tbody>
                     {
-                        members.map(
-                            member =>
-                            <tr key = {member.id}> 
-                                <td> {member.id} </td>
-                                <td> {member.firstName} </td>
+                    members.map(member => {
+                        const getDueInfo = (member) => {
+                            if (!member.lastPaymentDate) return "No payment history";
+
+                            const lastDate = new Date(member.lastPaymentDate);
+                            const now = new Date();
+                            const monthsMissed = (now.getFullYear() - lastDate.getFullYear()) * 12 + (now.getMonth() - lastDate.getMonth());
+                            const rate = member.isCouple ? 100 : 50;
+                            const amountDue = monthsMissed * rate;
+
+                            return monthsMissed > 0 ? `${monthsMissed} months missed — $${amountDue} due` : "Up to date";
+                        };
+
+                        return (
+                            <tr key={member.id}>
+                                <td>{member.id}</td>
+                                <td>{member.firstName}</td>
                                 <td>{member.lastName}</td>
                                 <td>{member.emailId}</td>
                                 <td>{member.phoneNumber}</td>
                                 <td>{member.address}</td>
                                 <td>{member.spritualFather}</td>
                                 <td>{member.dateRegistered}</td>
+                                <td style={{ color: getDueInfo(member).includes("missed") ? "red" : "green" }}>
+                                    {getDueInfo(member)}
+                                </td>
                                 <td>
                                     <div className="d-flex justify-content-center gap-2">
-                                     <Link className="btn btn-info" to={`/edit-member/${member.id}`}>
-                                     Update
-                                     </Link>
-                                    <button
-                                     className="btn btn-danger"
-                                     onClick={() => deleteMember(member.id)}
-                                     >
-                                     Delete
-                                    </button>
-                                </div>
+                                        <Link className="btn btn-info" to={`/edit-member/${member.id}`}>
+                                            Update
+                                        </Link>
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() => deleteMember(member.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
-                        )
-                    }
+                        );
+                    })
+                }
                 </tbody>
             </table>
         </div>
-    )
+    );
 }
 
 export default ListMemberComponent
