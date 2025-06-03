@@ -10,13 +10,19 @@ const AddMemberComponent = () => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [address, setAddress] = useState('')
     const [spritualFather, setSpritualFather] = useState('')
+    const [dateRegistered, setDateRegistered] = useState('')
     const history = useHistory();
     const {id} = useParams();
 
     const saveOrUpdateMember = (e) => {
         e.preventDefault();
 
-        const member = {firstName, lastName, emailId, phoneNumber, address, spritualFather}
+         if (!firstName || !lastName || !emailId || !phoneNumber || !address) {
+        alert("Please fill in all fields before submitting.");
+        return;
+      }
+
+        const member = {firstName, lastName, emailId, phoneNumber, address, spritualFather, dateRegistered }
 
         if(id){
             MemberService.updateMember(id, member).then((response) => {
@@ -48,6 +54,7 @@ const AddMemberComponent = () => {
             setPhoneNumber(response.data.phoneNumber);
             setAddress(response.data.address)
             setSpritualFather(response.data.spritualFather)
+            setDateRegistered(response.data.dateRegistered)
         }).catch(error => {
             console.log(error)
         })
@@ -152,8 +159,21 @@ const AddMemberComponent = () => {
                                     </input>
                                 </div>
 
+                                <div className = "form-group mb-2">
+                                    <label className = "form-label"> Date Registered :</label>
+                                    <input
+                                        type = "date"
+                                        placeholder = "Enter date registered"
+                                        name = "dateRegistered"
+                                        className = "form-control"
+                                        value = {dateRegistered}
+                                        onChange={(e) => setDateRegistered(e.target.value)}
+                                        max={new Date().toISOString().split("T")[0]} 
+                                    />
+                                </div>
+
                                 <button className = "btn btn-success" onClick = {(e) => saveOrUpdateMember(e)} >Submit </button>
-                                <Link to="/members" className="btn btn-danger"> Cancel </Link>
+                                <Link to="/members" className="btn btn-danger" style={{ marginLeft: "10px" }}> Cancel </Link>
                             </form>
 
                         </div>

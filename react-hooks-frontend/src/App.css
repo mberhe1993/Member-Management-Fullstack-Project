@@ -1,15 +1,32 @@
-/* body {
-  background-image: url('HolyTrinity.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  min-height: 100vh;
+html, body {
+  height: 100%;
   margin: 0;
-} */
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: 40px; /* space before footer if needed */
+}
+
+footer {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
 
 
 
-.footer {
+/* .footer {
   position: absolute;
   bottom: 0;
   width:100%;
@@ -17,4 +34,4 @@
   background-color: black;
   text-align: center;
   color: white;
-}
+} */

@@ -7,10 +7,10 @@ import AddMemberComponent from './components/AddMemberComponent';
 
 function App() {
   return (
-    <div>
+    <div className="app-wrapper">
       <Router>
         <HeaderComponent />
-        <div className= "container">
+        <div className="main-content container">
           <Switch>
               <Route exact path = "/" component = {ListMemberComponent}></Route>
               <Route path = "/employees" component = {ListMemberComponent}></Route>

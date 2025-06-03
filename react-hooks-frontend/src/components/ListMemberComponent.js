@@ -20,15 +20,15 @@ const ListMemberComponent = () => {
         })
     }
 
+   
     const deleteMember = (memberId) => {
-        MemberService.deleteMember(memberId).then((response) =>{
-        getAllMembers();
+    if (window.confirm("Are you sure you want to delete this member?")) {
+        MemberService.deleteMember(memberId)
+            .then(() => getAllMembers())
+            .catch(error => console.error(error));
+        }
+   };
 
-       }).catch(error =>{
-           console.log(error);
-       })
-        
-    }
 
     return (
         <div className = "container">
@@ -40,9 +40,10 @@ const ListMemberComponent = () => {
                     <th>   First Name </th>
                     <th>   Last Name </th>
                     <th>   Email Id </th>
-                    <th>   PhoneNumber </th>
+                    <th>   Phone Number </th>
                     <th>   Address </th>
                     <th>   Spiritual Father </th>
+                    <th>    date Registered </th>
                     <th> Actions </th>
                 </thead>
                 <tbody>
@@ -57,10 +58,19 @@ const ListMemberComponent = () => {
                                 <td>{member.phoneNumber}</td>
                                 <td>{member.address}</td>
                                 <td>{member.spritualFather}</td>
+                                <td>{member.dateRegistered}</td>
                                 <td>
-                                    <Link className="btn btn-info" to={`/edit-member/${member.id}`} >Update</Link>
-                                    <button className = "btn btn-danger" onClick = {() => deleteMember(member.id)}
-                                    style = {{marginLeft:"10px"}}> Delete</button>
+                                    <div className="d-flex justify-content-center gap-2">
+                                     <Link className="btn btn-info" to={`/edit-member/${member.id}`}>
+                                     Update
+                                     </Link>
+                                    <button
+                                     className="btn btn-danger"
+                                     onClick={() => deleteMember(member.id)}
+                                     >
+                                     Delete
+                                    </button>
+                                </div>
                                 </td>
                             </tr>
                         )
