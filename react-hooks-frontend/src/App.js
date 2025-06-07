@@ -1,9 +1,10 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import FooterComponent from './components/FooterComponent';
 import HeaderComponent from './components/HeaderComponent';
 import ListMemberComponent from './components/ListMemberComponent';
 import AddMemberComponent from './components/AddMemberComponent';
+import LoginComponent from './components/LoginComponent';
 
 function App() {
   return (
@@ -11,15 +12,15 @@ function App() {
       <Router>
         <HeaderComponent />
         <div className="main-content container">
-          <Switch>
-              <Route exact path = "/" component = {ListMemberComponent}></Route>
-              <Route path = "/employees" component = {ListMemberComponent}></Route>
-              <Route path = "/add-member" component = {AddMemberComponent} ></Route>
-              <Route path = "/edit-member/:id" component = {AddMemberComponent}></Route>
-            </Switch>
+          <Routes>
+            <Route path="/" element={<LoginComponent />} />
+            <Route path="/members" element={<ListMemberComponent />} />
+            <Route path="/add-member" element={<AddMemberComponent />} />
+            <Route path="/edit-member/:id" element={<AddMemberComponent />} />
+          </Routes>
         </div>
         <FooterComponent />
-        </Router>
+      </Router>
     </div>
   );
 }

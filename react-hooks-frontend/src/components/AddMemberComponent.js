@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Link, useHistory, useParams } from 'react-router-dom';
+import {Link, useNavigate, useParams } from 'react-router-dom';
 import MemberService from '../services/MemberService'
 
 const AddMemberComponent = () => {
@@ -11,7 +11,7 @@ const AddMemberComponent = () => {
     const [address, setAddress] = useState('')
     const [spritualFather, setSpritualFather] = useState('')
     const [dateRegistered, setDateRegistered] = useState('')
-    const history = useHistory();
+    const navigate = useNavigate();
     const {id} = useParams();
 
     const saveOrUpdateMember = (e) => {
@@ -26,7 +26,7 @@ const AddMemberComponent = () => {
 
         if(id){
             MemberService.updateMember(id, member).then((response) => {
-                history.push('/members')
+                navigate.push('/members')
             }).catch(error => {
                 console.log(error)
             })
@@ -36,7 +36,7 @@ const AddMemberComponent = () => {
 
                 console.log(response.data)
     
-                history.push('/members');
+                navigate.push('/members');
     
             }).catch(error => {
                 console.log(error)
